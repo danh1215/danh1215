@@ -1,11 +1,23 @@
 package rmit.p1;
 
 import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
     private String id;
     private String name;
     private Date birthdate;
+    private List<Course> courses = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "ID:\"" + id + '\"' +
+                ", Name:\"" + name + '\"' +
+                ", Date of Birth: " + birthdate.toString() +
+                '}';
+    }
 
     public Student(String id, String name, Date birthdate) throws InvalidStudentInfoException{
         if (!Pattern.matches("s[0-9]{7}",id)){
@@ -25,7 +37,27 @@ public class Student {
         else this.name = name;
 
         this.birthdate = birthdate;
+
+        StudentList.studentList.add(this);
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+
     private String capitalize(String str) {
         if(str == null || str.isEmpty()) {
             return str;
