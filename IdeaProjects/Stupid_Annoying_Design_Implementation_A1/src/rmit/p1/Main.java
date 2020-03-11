@@ -45,11 +45,25 @@ public class Main {
         enrollmentList.add(new StudentEnrollment(s1,c3,"2020A"));
         enrollmentList.add(new StudentEnrollment(s1,c5,"2020A"));
 
-        //
+        //all students of 1 course in 1 semester
+        enrollmentList.add(new StudentEnrollment(s2,c3,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s6,c3,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s5,c3,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s9,c3,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s7,c3,"2020B"));
+
+        //all courses offered in one semester
+        enrollmentList.add(new StudentEnrollment(s2,c7,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s3,c8,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s10,c1,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s8,c6,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s10,c2,"2020B"));
+        enrollmentList.add(new StudentEnrollment(s4,c4,"2020B"));
+
 
         Scanner input = new Scanner(System.in);
         int menuChoice = 99;
-        while ((menuChoice < 6 && menuChoice > 0)|| menuChoice == 99) {
+        while ((menuChoice < 8 && menuChoice > 0)|| menuChoice == 99) {
             System.out.println();
             System.out.println("************************************");
             System.out.println("Student Enrollment Manager v1.0");
@@ -58,6 +72,9 @@ public class Main {
             System.out.println("3. View enrollment list");
             System.out.println("4. Enroll a student");
             System.out.println("5. Manage a student's courses in a semester");
+            System.out.println("6. Print all students enrolled in a course in a semester");
+            System.out.println("7. Print all courses offered in one semester");
+            System.out.println("8. Exit");
             menuChoice = input.nextInt();
             switch(menuChoice){
                 case 1:
@@ -76,13 +93,13 @@ public class Main {
                     System.out.println("Selected 4. Enroll a student");
                     System.out.println("Please enter student ID (example: s1234567): ");
                     String studentId = input.next();
-                    System.out.println("inputted: " + studentId);
+                    //System.out.println("inputted: " + studentId);
                     if (Pattern.matches("s[0-9]{7}",studentId)){
                         Student enrolling_student = StudentList.findById(studentId);
                         if (enrolling_student != null){
                             System.out.println("Please enter course ID (example: COSC1234): ");
                             String courseId = input.next();
-                            System.out.println("inputted: " + courseId);
+                            //System.out.println("inputted: " + courseId);
                             if (Pattern.matches("[A-Z]{4}[0-9]{4}",courseId)){
                                 Course enrolling_course = CourseList.findById(courseId);
                                 if ( enrolling_course != null){
@@ -107,7 +124,7 @@ public class Main {
                     System.out.println("Selected 5. Manage student's course in semester");
                     System.out.println("Please enter student ID (example: s1234567): ");
                     String studentId1 = input.next();
-                    System.out.println("inputted: " + studentId1);
+                    //System.out.println("inputted: " + studentId1);
                     if (Pattern.matches("s[0-9]{7}",studentId1)) {
                         Student student = StudentList.findById(studentId1);
                         if(student != null){
@@ -140,6 +157,7 @@ public class Main {
                                         manageChoice = input.nextInt();
                                         switch (manageChoice){
                                             case 1:
+                                                System.out.println("Selected 1. Add a new enrollment");
                                                 System.out.println("Please enter course ID (example: COSC1234): ");
                                                 String courseId = input.next();
                                                 if (Pattern.matches("[A-Z]{4}[0-9]{4}",courseId)){
@@ -155,6 +173,7 @@ public class Main {
                                                 }
                                                 else System.out.println("Invalid course input. Please try again");break;
                                             case 2:
+                                                System.out.println("Selected 2. Delete an enrollment");
                                                 System.out.println("Please enter course ID (example: COSC1234): ");
                                                 String courseId2 = input.next();
                                                 if (Pattern.matches("[A-Z]{4}[0-9]{4}",courseId2)){
@@ -169,16 +188,18 @@ public class Main {
                                                 }
                                                 else System.out.println("Invalid course input. Please try again");break;
                                             case 3:
+                                                System.out.println("Selected 3. Print that list again");
                                                 for (StudentEnrollment enrollment : enrollments){
                                                     System.out.println(enrollment.toString());
                                                 }
                                                 break;
                                             case 4:
-                                                StringBuffer stringBuffer = new StringBuffer();
+                                                System.out.println("Selected 4. Save a CSV file of that list");
+                                                StringBuffer stringBuilder = new StringBuffer();
                                                 for (StudentEnrollment enrollment : enrollments){
-                                                    stringBuffer.append(enrollment.toCSVString());
+                                                    stringBuilder.append(enrollment.toCSVString());
                                                 }
-                                                String string = stringBuffer.toString();
+                                                String string = stringBuilder.toString();
                                                 writeStringToFile(string,  student.getName().replace(" ","") +"_"+ semester + ".csv");
                                                 System.out.println("File saved successfully.");
                                                 System.out.println("File will be accessible after the program is closed");
@@ -189,6 +210,94 @@ public class Main {
                             }else System.out.println("Invalid semester input. Please try again");break;
                         }else System.out.println("Student not found. Please try again");break;
                     }else System.out.println("Invalid ID input. Please try again");break;
+                case 6:
+                    System.out.println("Please enter course ID (example: COSC1234): ");
+                    String courseId = input.next();
+                    if (Pattern.matches("[A-Z]{4}[0-9]{4}",courseId)){
+                        Course course = CourseList.findById(courseId);
+                        if (course!= null){
+                            System.out.println("Please enter semester (available semesters: 2020A,2020B,2020C): ");
+                            String semester = input.next();
+                            if (semester.equals("2020A") ||semester.equals("2020B") ||semester.equals("2020C")){
+                                int studentCount = 0;
+                                List<StudentEnrollment> enrollments = new ArrayList<>();
+                                for (StudentEnrollment studentEnrollment: enrollmentList.getAll()){
+                                    if (studentEnrollment.getCourse().getId().equals(courseId) ){
+                                        if (studentEnrollment.getSemester().equals(semester)) {
+                                            enrollments.add(studentEnrollment);
+                                            studentCount++;
+                                        }
+                                    }
+                                }
+                                if (studentCount != 0){
+                                    System.out.println("All students enrolled in "+ course.getId() +" " + course.getName() + " in sem " +semester +":");
+                                    for (StudentEnrollment enrollment : enrollments){
+                                        System.out.println(enrollment.getStudent().toString());
+                                    }
+                                    while (true){
+                                        System.out.println("Would you like to save a CSV file of this? (Y/N)");
+                                        String select = input.next();
+                                        if (select.equals("Y") || select.equals("y")){
+                                            StringBuffer stringBuilder = new StringBuffer();
+                                            for (StudentEnrollment enrollment : enrollments){
+                                                stringBuilder.append(enrollment.getStudent().toCSVString());
+                                            }
+                                            String string = stringBuilder.toString();
+                                            writeStringToFile(string,  courseId+ "_" + semester + "_Students"+ ".csv");
+                                            System.out.println("File saved successfully.");
+                                            System.out.println("File will be accessible after the program is closed");
+                                            break;
+                                        }
+                                        if (select.equals("N") || select.equals("n")){
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+
+                                }else System.out.println("There are no students enrolled in " + course.getId() +" " + course.getName() + " in sem " +semester);
+                            }else System.out.println("Invalid semester input. Please try again");break;
+                        }else System.out.println("Course not found. Please try again");break;
+                    }else System.out.println("Invalid ID input. Please try again");break;
+                case 7:
+                    System.out.println("Please enter semester (available semesters: 2020A,2020B,2020C): ");
+                    String semester = input.next();
+                    if (semester.equals("2020A") ||semester.equals("2020B") ||semester.equals("2020C")){
+                        List<Course> courses = new ArrayList<>();
+                        for (StudentEnrollment studentEnrollment: enrollmentList.getAll()){
+                            if(studentEnrollment.getSemester().equals(semester)){
+                                if (courses.indexOf(studentEnrollment.getCourse()) == -1){
+                                    courses.add(studentEnrollment.getCourse());
+                                }
+                            }
+                        }
+                        if (courses.size() != 0){
+                            System.out.println("All the courses that are available in sem " + semester +":");
+                            for (Course course:courses) {
+                                System.out.println(course.toString());
+                            }
+                            while (true){
+                                System.out.println("Would you like to save a CSV file of this? (Y/N)");
+                                String select = input.next();
+                                if (select.equals("Y") || select.equals("y")){
+                                    StringBuffer stringBuilder = new StringBuffer();
+                                    for (Course course : courses){
+                                        stringBuilder.append(course.toCSVString());
+                                    }
+                                    String string = stringBuilder.toString();
+                                    writeStringToFile(string,  semester + "_Courses"+ ".csv");
+                                    System.out.println("File saved successfully.");
+                                    System.out.println("File will be accessible after the program is closed");
+                                    break;
+                                }
+                                if (select.equals("N") || select.equals("n")){
+                                    break;
+                                }
+                            }
+                            break;
+                        }else System.out.println("There are no courses available in semester " +semester);
+
+                    }else System.out.println("Invalid semester input. Please try again");
             }
         }
     }

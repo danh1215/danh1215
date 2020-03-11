@@ -15,7 +15,7 @@ public class StudentEnrollment{
     }
 
     public String toCSVString(){
-        return " " + student.getName() + ","+
+        return  student.getName() + ","+
                 student.getId() + ","+
                 student.getBirthdate().toString() +","+
                 course.getId() +","+

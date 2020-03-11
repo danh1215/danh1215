@@ -228,6 +228,9 @@ public class Date {
         return "";
     }
 
+    public String toCSVString(){
+        return day + "/" + month + "/" + year;
+    }
     public Date(String date) throws InvalidDateException{
         String[] arr = date.split("/");
         int day,month,year;

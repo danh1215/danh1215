@@ -15,6 +15,11 @@ public class Course {
                 ", Credits:" + number_of_credits +
                 '}';
     }
+    public String toCSVString(){
+        return id + "," +
+                name + ","+
+                number_of_credits + "\n";
+    }
 
     public Course(String id, String name, int number_of_credits) throws InvalidCourseInfoException{
         if (!Pattern.matches("[A-Z]{4}[0-9]{4}",id)){

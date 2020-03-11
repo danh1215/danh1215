@@ -18,6 +18,11 @@ public class Student {
                 ", Date of Birth: " + birthdate.toString() +
                 '}';
     }
+    public String toCSVString(){
+        return  id + ","+
+                name + ","+
+                birthdate.toCSVString()+"\n";
+    }
 
     public Student(String id, String name, Date birthdate) throws InvalidStudentInfoException{
         if (!Pattern.matches("s[0-9]{7}",id)){
