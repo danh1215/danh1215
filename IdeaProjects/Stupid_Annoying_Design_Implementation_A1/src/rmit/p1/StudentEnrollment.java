@@ -7,17 +7,27 @@ public class StudentEnrollment{
 
     @Override
     public String toString() {
-        return "StudentEnrollment{" +
-                "student=" + student +
-                ", course=" + course +
-                ", semester='" + semester + '\'' +
-                '}';
+        return "Student "+ student.getName() +
+                ", ID: " + student.getId() +
+                " enrolled in " + course.getId() +
+                " " + course.getName() +
+                ", sem " + semester;
+    }
+
+    public String toCSVString(){
+        return " " + student.getName() + ","+
+                student.getId() + ","+
+                student.getBirthdate().toString() +","+
+                course.getId() +","+
+                course.getName() +","+
+                semester+"\n";
     }
 
     public StudentEnrollment(Student student, Course course, String semester) {
         this.student = student;
         this.course = course;
         this.semester = semester;
+        student.getCourses().add(course);
     }
 
     public Student getStudent() {

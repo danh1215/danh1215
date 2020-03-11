@@ -38,14 +38,11 @@ public class StudentEnrollmentList implements StudentEnrollmentManager{
     public StudentEnrollment getOne(String studentId, String courseId) {
         for (StudentEnrollment enrollment : enrollments) {
             if (enrollment.getStudent().getId().equals(studentId)){
-                System.out.println("Found student.");
                 Student target = enrollment.getStudent();
                 for (Course course : target.getCourses()) {
                     if (course.getId().equals(courseId)){
-                        System.out.println("Found the enrollment");
                         return enrollment;
                     }
-                    else System.out.println("The student did not apply for that course.");
                 }
 
             }
