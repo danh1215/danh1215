@@ -6,7 +6,11 @@ import java.util.List;
 public class CourseList {
     static List<Course> courseList = new ArrayList<>();
 
-    public static Course findById(String courseId){
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public Course findById(String courseId){
         for(Course course: courseList){
             if (course.getId().equals(courseId)){
                 return course;

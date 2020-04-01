@@ -12,17 +12,9 @@ public class StudentEnrollmentList implements StudentEnrollmentManager{
     }
 
     @Override
-    public void update(String id, Course course, String semester) {
-        for (StudentEnrollment enrollment : enrollments) {
-            if (enrollment.getStudent().getId().equals(id)){
-                System.out.println("Found student. Making changes");
-                enrollment.setCourse(course);
-                enrollment.setSemester(semester);
-            }
-            else System.out.println("Student not found");
-        }
-
-
+    public void update(StudentEnrollment enrollment, Course course, String semester) {
+        enrollment.setCourse(course);
+        enrollment.setSemester(semester);
     }
 
     @Override

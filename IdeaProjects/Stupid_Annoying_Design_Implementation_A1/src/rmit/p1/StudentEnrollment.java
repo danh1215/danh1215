@@ -1,5 +1,8 @@
 package rmit.p1;
 
+import java.util.List;
+import java.util.Objects;
+
 public class StudentEnrollment{
     private Student student;
     private Course course;
@@ -28,6 +31,24 @@ public class StudentEnrollment{
         this.course = course;
         this.semester = semester;
         student.getCourses().add(course);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentEnrollment that = (StudentEnrollment) o;
+        return Objects.equals(student, that.student) &&
+                Objects.equals(course, that.course) &&
+                Objects.equals(semester, that.semester);
+    }
+
+    public boolean isDuplicate(List<StudentEnrollment> studentEnrollmentList){
+        for (StudentEnrollment enrollment:studentEnrollmentList) {
+            if(this.equals(enrollment))
+                return true;
+        }
+        return false;
     }
 
     public Student getStudent() {
