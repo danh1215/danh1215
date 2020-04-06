@@ -40,8 +40,6 @@ public class Date {
                         return "Feb " + day +"nd, " + year;
                     case 23:
                         return "Feb " + day +"rd, " + year;
-                    case 31:
-                        return "Feb " + day +"st, " + year;
                 }
                 return "Feb " + day +"th, " + year;
             case 3:
@@ -76,8 +74,6 @@ public class Date {
                         return "Apr " + day +"nd, " + year;
                     case 23:
                         return "Apr " + day +"rd, " + year;
-                    case 31:
-                        return "Apr " + day +"st, " + year;
                 }
                 return "Apr " + day +"th, " + year;
             case 5:
@@ -112,8 +108,6 @@ public class Date {
                         return "Jun " + day +"nd, " + year;
                     case 23:
                         return "Jun " + day +"rd, " + year;
-                    case 31:
-                        return "Jun " + day +"st, " + year;
                 }
                 return "Jun " + day +"th, " + year;
             case 7:
@@ -166,8 +160,6 @@ public class Date {
                         return "Sep " + day +"nd, " + year;
                     case 23:
                         return "Sep " + day +"rd, " + year;
-                    case 31:
-                        return "Sep " + day +"st, " + year;
                 }
                 return "Sep " + day +"th, " + year;
             case 10:
@@ -202,8 +194,6 @@ public class Date {
                         return "Nov " + day +"nd, " + year;
                     case 23:
                         return "Nov " + day +"rd, " + year;
-                    case 31:
-                        return "Nov " + day +"st, " + year;
                 }
                 return "Nov " + day +"th, " + year;
             case 12:
@@ -231,6 +221,7 @@ public class Date {
     public String toCSVString(){
         return day + "/" + month + "/" + year;
     }
+
     public Date(String date) throws InvalidDateException{
         String[] arr = date.split("/");
         int day,month,year;
