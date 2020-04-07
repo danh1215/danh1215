@@ -23,8 +23,7 @@ public class StudentEnrollmentList implements StudentEnrollmentManager{
             System.out.println("Enrollment found.");
             this.enrollments.remove(getOne(studentId,courseId));
         }
-        else System.out.println("Enrollment not found.");
-    }
+        else System.out.println("Enrollment not found."); }
 
     @Override
     public StudentEnrollment getOne(String studentId, String courseId) {
@@ -33,11 +32,7 @@ public class StudentEnrollmentList implements StudentEnrollmentManager{
                 Student target = enrollment.getStudent();
                 for (Course course : target.getCourses()) {
                     if (course.getId().equals(courseId)){
-                        return enrollment;
-                    }
-                }
-
-            }
+                        return enrollment; } } }
             else System.out.println("Student not found");
         }
         return null;

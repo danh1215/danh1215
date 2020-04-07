@@ -46,8 +46,7 @@ public class StudentEnrollment{
     public boolean isDuplicate(List<StudentEnrollment> studentEnrollmentList){
         for (StudentEnrollment enrollment:studentEnrollmentList) {
             if(this.equals(enrollment))
-                return true;
-        }
+                return true; }
         return false;
     }
 

@@ -25,6 +25,8 @@ public class Main {
         Student s9 = new Student("s3758839","Hoang To Quyen", new Date("5/5/1998"));
         Student s10 = new Student("s3695197","Thai Phuong Yen",new Date("27/12/1999"));
 
+
+
         //Courses
         Course c1 = new Course("COSC2020","Intro to Software Development",12);
         Course c2 = new Course("COSC2769","Practical Data Science",12);
@@ -38,7 +40,6 @@ public class Main {
         StudentEnrollmentList enrollmentList = new StudentEnrollmentList();
         StudentList studentList = new StudentList();
         CourseList courseList = new CourseList();
-
 
 //        printCourses();
 //        printStudents();

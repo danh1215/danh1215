@@ -27,7 +27,7 @@ public class Course {
         }
         else this.id = id;
         this.name = name;
-        if (number_of_credits < 0 || number_of_credits > 24){
+        if (number_of_credits < 1 || number_of_credits > 25){
             throw new InvalidCourseInfoException("Invalid number of credits");
         }
         else this.number_of_credits = number_of_credits;
@@ -46,4 +46,15 @@ public class Course {
         return number_of_credits;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNumber_of_credits(int number_of_credits) {
+        this.number_of_credits = number_of_credits;
+    }
 }
